@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+    command: >
+      sh -c "
+      ollama serve &
+      sleep 5 &&
+      ollama pull llama3.2:1b &&
+      wait
+      "
+
+volumes:
+  ollama_data:
